@@ -48,11 +48,11 @@
                         <div class="error">${errorMessage}</div>
                     </c:if>
                   
-                        
+                   
             </div>
            
             <div class="content_right">
-                <div>
+                <div>s
                     <span>書籍名</span>
                     <p>${bookDetailsInfo.title}</p>
                 </div>
@@ -82,7 +82,7 @@
             <form method="post" action="rentBook">
                 <button type="submit" value="${bookDetailsInfo.bookId}" name="bookId" class="btn_rentBook">借りる</button>
             </form>
-            <form method="post" action="">
+            <form method="post" action="returnBook">
                 <button type="submit" value="${bookDetailsInfo.bookId}" name="bookId" class="btn_returnBook">返す</button>
             </form>
             <form method="post" action="<%=request.getContextPath()%>/editBook">
