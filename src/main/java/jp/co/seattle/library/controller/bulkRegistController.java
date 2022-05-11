@@ -51,6 +51,14 @@ public class bulkRegistController {
 		return "bulkRegist";
 	}
 
+	/**
+ 	 * 書籍情報を一括登録する
+ 	 * @param locale ロケール情報
+ 	 * @param uploadFile　CSVファイル
+ 	 * @param model　モデル
+ 	 * @return　遷移先画面
+ 	 */
+	
 	@RequestMapping(value = "/regist", method = RequestMethod.POST)
 	public String Regist(Locale locale, Model model, @RequestParam("upload_file") MultipartFile uploadFile) {
 
@@ -65,14 +73,9 @@ public class bulkRegistController {
 
 			while (!StringUtils.isEmpty(line)) {
 
-				final String[] split = line.split(",", -1);
+			    String[] split = line.split(",", -1);
 
-				BookDetailsInfo bookInfo = new BookDetailsInfo();
-				bookInfo.setTitle(split[0]);
-				bookInfo.setAuthor(split[1]);
-				bookInfo.setPublisher(split[2]);
-				bookInfo.setPublishDate(split[3]);
-				bookInfo.setIsbn(split[4]);
+				
 
 				boolean isbnCheck = !(split[4].length() == 10 || split[4].length() == 13 || split[4].length() == 0);
 				boolean publishDateCheck = !(split[3].length() == 8 && split[3].matches("^[0-9]+$"));
@@ -83,6 +86,14 @@ public class bulkRegistController {
 					setErrors.add(count + "行目の書籍登録でエラーが起きました。");
 
 				} else {
+					
+					BookDetailsInfo bookInfo = new BookDetailsInfo();
+					bookInfo.setTitle(split[0]);
+					bookInfo.setAuthor(split[1]);
+					bookInfo.setPublisher(split[2]);
+					bookInfo.setPublishDate(split[3]);
+					bookInfo.setIsbn(split[4]);
+					
 					bookList.add(bookInfo);
 				}
 
