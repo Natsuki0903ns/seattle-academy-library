@@ -40,17 +40,13 @@
                         </c:if> <c:if test="${bookDetailsInfo.thumbnailUrl != 'null'}">
                             <img class="book_noimg" src="${bookDetailsInfo.thumbnailUrl}">
                         </c:if> <input type="hidden" name="bookId" value="${bookDetailsInfo.bookId}"> <c:if test="${!empty resultMessage}">
-                           
                         </c:if>
                     </a>
                 </div>
-                 <c:if test="${!empty errorMessage}">
-                        <div class="error">${errorMessage}</div>
-                    </c:if>
-                  
-                        
+                <c:if test="${!empty errorMessage}">
+                    <div class="error">${errorMessage}</div>
+                </c:if>
             </div>
-           
             <div class="content_right">
                 <div>
                     <span>書籍名</span>
