@@ -39,9 +39,13 @@
                             <img class="book_noimg" src="resources/img/noImg.png">
                         </c:if> <c:if test="${bookDetailsInfo.thumbnailUrl != 'null'}">
                             <img class="book_noimg" src="${bookDetailsInfo.thumbnailUrl}">
-                        </c:if> <input type="hidden" name="bookId" value="${bookDetailsInfo.bookId}">
+                        </c:if> <input type="hidden" name="bookId" value="${bookDetailsInfo.bookId}"> <c:if test="${!empty resultMessage}">
+                        </c:if>
                     </a>
                 </div>
+                <c:if test="${!empty errorMessage}">
+                    <div class="error">${errorMessage}</div>
+                </c:if>
             </div>
             <div class="content_right">
                 <div>
@@ -71,17 +75,15 @@
             </div>
         </div>
         <div class="edtDelBookBtn_box">
-        <form method="post" action="">
-                 <button type="submit" value="${bookDetailsInfo.bookId}" name="bookId" class="btn_rentBook">借りる</button>
-             </form>
-
-             <form method="post" action="">
-                 <button type="submit" value="${bookDetailsInfo.bookId}" name="bookId" class="btn_returnBook">返す</button>
-             </form>
-
-             <form method="post" action="<%=request.getContextPath()%>/editBook">
-                 <button type="submit" value="${bookDetailsInfo.bookId}" name="bookId" class="btn_editBook">編集</button>
-             </form>
+            <form method="post" action="rentBook">
+                <button type="submit" value="${bookDetailsInfo.bookId}" name="bookId" class="btn_rentBook">借りる</button>
+            </form>
+            <form method="post" action="">
+                <button type="submit" value="${bookDetailsInfo.bookId}" name="bookId" class="btn_returnBook">返す</button>
+            </form>
+            <form method="post" action="<%=request.getContextPath()%>/editBook">
+                <button type="submit" value="${bookDetailsInfo.bookId}" name="bookId" class="btn_editBook">編集</button>
+            </form>
             <form method="post" action="deleteBook">
                 <button type="submit" value="${bookDetailsInfo.bookId}" name="bookId" class="btn_deleteBook">削除</button>
             </form>
