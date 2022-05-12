@@ -9,7 +9,7 @@ import lombok.Data;
  *
  */
 @Configuration
-@Data
+ @Data
 public class BookDetailsInfo {
 
     private int bookId;
@@ -29,6 +29,8 @@ public class BookDetailsInfo {
     private String isbn;
     
     private String explain;
+    
+    private int RentBookId;
 
     public BookDetailsInfo() {
 
