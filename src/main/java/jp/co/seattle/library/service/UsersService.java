@@ -44,7 +44,7 @@ public class UsersService {
      */
     public UserInfo selectUserInfo(String email, String password) {
         // TODO SQL生成
-        String sql = "select email, password from users where email '" + email + "' password '" + password + ";";
+        String sql = "select email, password from users where email = '" + email + "' and password = '" + password + "'";
         
         try {
         	 UserInfo selectUserInfo = jdbcTemplate.queryForObject(sql, new UserCountRowMapper());
