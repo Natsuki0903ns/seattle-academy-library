@@ -49,7 +49,7 @@
             </div>
             <div class="content_right">
                 <div>
-                    s <span>書籍名</span>
+                    <span>書籍名</span>
                     <p>${bookDetailsInfo.title}</p>
                 </div>
                 <div>
