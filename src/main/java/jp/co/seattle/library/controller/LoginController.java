@@ -3,12 +3,14 @@ package jp.co.seattle.library.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jp.co.seattle.library.dto.UserInfo;
 import jp.co.seattle.library.service.BooksService;
 import jp.co.seattle.library.service.UsersService;
 
@@ -23,6 +25,9 @@ public class LoginController {
     private BooksService booksService;
     @Autowired
     private UsersService usersService;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String first(Model model) {
@@ -35,22 +40,33 @@ public class LoginController {
      * @param email メールアドレス
      * @param password パスワード
      * @param model
+     * @param sql 
      * @return　ホーム画面に遷移
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(
             @RequestParam("email") String email,
             @RequestParam("password") String password,
-            Model model) {
+            Model model, String sql) {
 
         // TODO 下記のコメントアウトを外してサービスクラスを使用してください。
-        //        UserInfo selectedUserInfo = usersService.selectUserInfo(email, password);
-
+            UserInfo selectedUserInfo = usersService.selectUserInfo(email, password);
+         
+			
         // TODO パスワードとメールアドレスの組み合わせ存在チェック実装
+            if (selectedUserInfo == null) {
+            	model.addAttribute("errorMessage", "メールアドレスとパスワードが一致しません。");
+            	return "login";
+            }else {
+            	
+            	model.addAttribute("bookList", booksService.getBookList());
+                return "home";
+            }
+            	
+            		
 
         // 本の情報を取得して画面側に渡す
-        model.addAttribute("bookList", booksService.getBookList());
-        return "home";
+       
 
     }
 }
