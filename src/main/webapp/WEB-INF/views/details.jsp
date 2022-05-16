@@ -43,7 +43,6 @@
                         </c:if>
                     </a>
                 </div>
-
                 <c:if test="${bookDetailsInfo.rentBookId == 0}">
                     <span>貸出し可</span>
                 </c:if>
@@ -55,7 +54,6 @@
                         <div class="error">${errorMessage}</div>
                     </c:if>
                 </div>
-
             </div>
             <div class="content_right">
                 <div>
