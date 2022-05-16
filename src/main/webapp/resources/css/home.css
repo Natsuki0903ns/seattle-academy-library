@@ -20,7 +20,7 @@ input {
 }
 
 .top-right {
-    float: right;
+    display: inline-block;
     text-align: right;
     height: 90px;
     z-index: 10;
@@ -71,7 +71,7 @@ input {
 }
 
 .search1 {
-    border-radius: 20px 0 0 20px;
+    border-radius: 0px;
     font-size: 15px;
     width: 325px;
     padding: 4px 10px;
@@ -124,7 +124,11 @@ img.book_noimg, img.book_img{
     height:100%;
     width: 100%;
 }
-
+.book{
+	display: flex;
+  justify-content: space-between;
+	
+}
 .book_title {
     font-size: 16px;
     text-align: center;

@@ -43,7 +43,6 @@
                         </c:if>
                     </a>
                 </div>
-<<<<<<< HEAD
                 <c:if test="${bookDetailsInfo.rentBookId == 0}">
                     <span>貸出し可</span>
                 </c:if>
@@ -59,15 +58,6 @@
             <div class="content_right">
                 <div>
                     <span>書籍名</span>
-=======
-                <c:if test="${!empty errorMessage}">
-                    <div class="error">${errorMessage}</div>
-                </c:if>
-            </div>
-            <div class="content_right">
-                <div>
-                    s <span>書籍名</span>
->>>>>>> feature/task_11
                     <p>${bookDetailsInfo.title}</p>
                 </div>
                 <div>
