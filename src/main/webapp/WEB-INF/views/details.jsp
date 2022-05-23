@@ -43,9 +43,12 @@
                         </c:if>
                     </a>
                 </div>
-                <c:if test="${!empty errorMessage}">
-                    <div class="error">${errorMessage}</div>
-                </c:if>
+                <p>${bookDetailsInfo.status}</p>
+                <div>
+                    <c:if test="${!empty errorMessage}">
+                        <div class="error">${errorMessage}</div>
+                    </c:if>
+                </div>
             </div>
             <div class="content_right">
                 <div>
