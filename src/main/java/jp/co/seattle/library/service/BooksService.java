@@ -42,7 +42,9 @@ public class BooksService {
 	public BookDetailsInfo getBookInfo(int bookId) {
 
 		// JSPに渡すデータを設定する
-		String sql = "select * , case when book_id > 0 then '貸出し中' else '貸出し可' end from books left outer join rentbooks on books.id = rentbooks.book_id where books.id =" + bookId;
+
+		String sql = "select * , case when book_id > 0 then '貸出し中' else '貸出し可' end from books left outer join rentbooks on books.id = rentbooks.book_id where books.id ="
+				+ bookId;
 
 		BookDetailsInfo bookDetailsInfo = jdbcTemplate.queryForObject(sql, new BookDetailsInfoRowMapper());
 
@@ -52,6 +54,7 @@ public class BooksService {
 	public BookDetailsInfo getLatestBookInfo() {
 
 		// JSPに渡すデータを設定する
+
 		String sql = "select * , case when book_id > 0 then '貸出し中' else '貸出し可' end from books left outer join rentbooks on books.id = rentbooks.book_id where books.id =(select max(id) from books) ";
 
 		BookDetailsInfo latestBookDetailsInfo = jdbcTemplate.queryForObject(sql, new BookDetailsInfoRowMapper());
@@ -98,6 +101,16 @@ public class BooksService {
 				+ id;
 
 		jdbcTemplate.update(sql);
+	}
+
+	public List<BookInfo> getsearchBookList(String searchtitle) {
+
+		List<BookInfo> getedsearchBookList = jdbcTemplate.query(
+
+				"select id,title,author,publisher,publish_date, thumbnail_url, isbn,explain from books where title like '%"
+						+ searchtitle + "%'",
+				new BookInfoRowMapper());
+		return getedsearchBookList;
 	}
 
 }
