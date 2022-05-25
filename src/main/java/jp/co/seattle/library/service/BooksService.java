@@ -43,7 +43,7 @@ public class BooksService {
 
 		// JSPに渡すデータを設定する
 
-		String sql = "select * , case when book_id > 0 then '貸出し中' else '貸出し可' end from books left outer join rentbooks on books.id = rentbooks.book_id where books.id ="
+		String sql = "select * , case when rent_date is null then '貸出可' else '貸出中' end from books left outer join rentbooks on books.id = rentbooks.book_id where books.id ="
 				+ bookId;
 
 		BookDetailsInfo bookDetailsInfo = jdbcTemplate.queryForObject(sql, new BookDetailsInfoRowMapper());
@@ -55,7 +55,7 @@ public class BooksService {
 
 		// JSPに渡すデータを設定する
 
-		String sql = "select * , case when book_id > 0 then '貸出し中' else '貸出し可' end from books left outer join rentbooks on books.id = rentbooks.book_id where books.id =(select max(id) from books) ";
+		String sql = "select * , case when rent_date is null then '貸出可' else '貸出中' end from books left outer join rentbooks on books.id = rentbooks.book_id where books.id =(select max(id) from books) ";
 
 		BookDetailsInfo latestBookDetailsInfo = jdbcTemplate.queryForObject(sql, new BookDetailsInfoRowMapper());
 
@@ -80,7 +80,8 @@ public class BooksService {
 
 	public void deleteBook(Integer bookId) {
 
-		String sql = "DELETE FROM books WHERE id = " + bookId + ";";
+		String sql = "WITH book AS ( DELETE FROM books where id = " + bookId + ") DELETE FROM rentbooks where book_id =" + bookId + ";";
+			
 		jdbcTemplate.update(sql);
 	}
 
@@ -112,5 +113,28 @@ public class BooksService {
 				new BookInfoRowMapper());
 		return getedsearchBookList;
 	}
+	public List<BookInfo> getperfect_matchingList(String searchtitle) {
 
-}
+		List<BookInfo>getedperfect_matchingList = jdbcTemplate.query(
+
+				"SELECT * FROM books WHERE title='" + searchtitle + "'",
+				new BookInfoRowMapper());
+		return getedperfect_matchingList;
+	}
+	
+	public void updaterent(Integer bookId) {
+
+ 		String sql ="UPDATE rentbooks set rent_date=now(),return_date=null WHERE book_id="+bookId;
+ 		jdbcTemplate.update(sql);
+ 	}
+
+	public void updatereturn(Integer bookId) {
+
+ 		String sql ="UPDATE rentbooks set return_date=now(),rent_date=null WHERE book_id="+bookId;
+ 		jdbcTemplate.update(sql);
+ 	}
+		// TODO 自動生成されたメソッド・スタブ
+		
+	}
+
+
