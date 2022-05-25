@@ -37,13 +37,14 @@ public class ReturnBookController {
 	@RequestMapping(value = "/returnBook", method = RequestMethod.POST)
 	public String returnBook(Locale locale, @RequestParam("bookId") Integer bookId, Model model) {
 
-		Integer RentBookcount = rentBooksService.countRentBook(bookId);
+		Integer rentdate = rentBooksService.rentdate(bookId);
 
-		if (RentBookcount == 0) {
-			model.addAttribute("errorMessage", "貸し出しされていません。");
+		if ( rentdate > 0) {
+			booksService.updatereturn(bookId);
 
 		} else {
-			rentBooksService.returnBook(bookId);
+			
+			model.addAttribute("errorMessage", "貸し出しされていません。");
 		}
 
 		model.addAttribute("bookDetailsInfo", booksService.getBookInfo(bookId));

@@ -12,10 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jp.co.seattle.library.dto.BorrowingHistoryInfo;
 import jp.co.seattle.library.service.BooksService;
 import jp.co.seattle.library.service.RentBooksService;
-
-
 
 @Controller // APIの入り口
 public class RentBooksController {
@@ -27,23 +26,35 @@ public class RentBooksController {
 
 	/**
 	 * 対象書籍削除
+	 * 
 	 * @param locale ロケール情報
-      * @param bookId 書籍ID
-      * @param model モデル情報
-      * @return 遷移先画面名
+	 * @param bookId 書籍ID
+	 * @param model  モデル情報
+	 * @return 遷移先画面名
 	 */
-	
+
 	@Transactional
 	@RequestMapping(value = "/rentBook", method = RequestMethod.POST)
 	public String rentBook(Locale locale, @RequestParam("bookId") Integer bookId, Model model) {
 		logger.info("Welcome rentBooks! The client locale is {}.", locale);
-		int count = rentBooksService.countRentBook(bookId);
-		rentBooksService.rentBook(bookId);
-		int rentbookcount = rentBooksService.countRentBook(bookId);
+		BorrowingHistoryInfo historybook = rentBooksService.history(bookId);
 
-		if (count == rentbookcount) {
-			model.addAttribute("errorMessage", "貸出済みです");
+		
+		
+		
+		if (historybook == null) {
+			rentBooksService.rentBook(bookId);
 
+		} else {
+			Integer rentdate = rentBooksService.rentdate(bookId);
+			if (rentdate == 0) {
+
+				booksService.updaterent(bookId);
+
+			} else {
+				model.addAttribute("errorMessage", "貸し出済です。");
+
+			}
 		}
 
 		model.addAttribute("bookDetailsInfo", booksService.getBookInfo(bookId));

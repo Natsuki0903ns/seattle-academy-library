@@ -20,16 +20,34 @@ import jp.co.seattle.library.service.BooksService;
 
  	@Autowired
      private BooksService booksService;
+ 	
+ 	/**
+ 	 * 
+ 	 * @param locale
+ 	 * @param searchtitle
+ 	 * @param title
+ 	 * @param radiobutton
+ 	 * @param model
+ 	 * @return
+ 	 */
 
  	@Transactional
  	@RequestMapping(value = "/searchBook", method = RequestMethod.POST)
  	public String searchBook(Locale locale, 
- 			@RequestParam("searchtitle")String searchtitle,
+ 			@RequestParam("searchtitle")String searchtitle, String title,
+ 			@RequestParam("radiobutton")String radiobutton,
  			Model model) {
  		// デバッグ用ログ
  		logger.info("Welcome searchBookControler.java! The client locale is {}.", locale);
+ 		
+ 		if(radiobutton.equals("partial matching")) {
 
  		model.addAttribute("bookList", booksService.getsearchBookList(searchtitle));
+ 		
+ 		}else {
+ 			model.addAttribute("bookList", booksService.getperfect_matchingList(searchtitle));
+ 		}
+ 	
 
  		return "home";
 

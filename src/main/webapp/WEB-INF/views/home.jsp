@@ -28,11 +28,11 @@
         <div class="book">
             <h1>Home</h1>
             <form action="searchBook" method="post">
-                <input type="search" class="search1" name="searchtitle" placeholder="本の検索">
+                <input type="radio" name="radiobutton" value="partial matching"> 部分一致 <input type="radio" name="radiobutton" value="perfect_matching"> 完全一致<input type="search" class="search1" name="searchtitle" placeholder="本の検索">
                 <button type="submit">検索</button>
             </form>
         </div>
-        <a href="<%=request.getContextPath()%>/addBook" class="btn_add_book">書籍の追加</a> <a href="<%=request.getContextPath()%>/bulkRegist" class="btn_bulk_book">書籍の一括登録</a>
+        <a href="<%=request.getContextPath()%>/addBook" class="btn_add_book">書籍の追加</a> <a href="<%=request.getContextPath()%>/bulkRegist" class="btn_bulk_book">書籍の一括登録</a><a href="<%=request.getContextPath()%>/borrowinghistoryBook" class="btn_history_book">貸出履歴一覧</a> 
         <div class="content_body">
             <c:if test="${!empty resultMessage}">
                 <div class="error_msg">${resultMessage}</div>
