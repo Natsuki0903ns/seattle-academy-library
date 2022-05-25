@@ -22,6 +22,12 @@ import jp.co.seattle.library.service.RentBooksService;
 	private RentBooksService rentBooksService;
 	 @Autowired
 	    private BooksService booksService;
+	 /**
+	  * 履歴一覧画面に遷移
+	  * @param locale
+	  * @param model
+	  * @return
+	  */
 
  		 @RequestMapping(value = "/borrowinghistoryBook", method = RequestMethod.GET) //value＝actionで指定したパラメータ
  		    //RequestParamでname属性を取得
@@ -31,7 +37,13 @@ import jp.co.seattle.library.service.RentBooksService;
  			model.addAttribute("BorrowingHistoryList", rentBooksService.BorrowingHistoryList());
  			
  	         return "BorrowingHistory";}
- 			 	
+ 		/**
+ 		 * 詳細表示	 	
+ 		 * @param locale
+ 		 * @param bookId
+ 		 * @param model
+ 		 * @return
+ 		 */
  		@Transactional
  	 	@RequestMapping(value = "/historyBook", method = RequestMethod.GET)
  	 	public String history(Locale locale, @RequestParam("bookId") int bookId, Model model) {

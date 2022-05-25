@@ -33,9 +33,11 @@ public class RentBooksService {
 
 	}
 
-	/**
-	 * 
-	 */
+/**
+ * 貸出し書籍取得
+ * @param bookId
+ * @return
+ */
 
 	public BorrowingHistoryInfo history(Integer bookId) {
 
@@ -48,6 +50,11 @@ public class RentBooksService {
 			return null;
 		}
 	}
+	/**
+	 * 貸出日をカウント
+	 * @param bookId
+	 * @return
+	 */
 	public Integer rentdate(Integer bookId) {
 		try {
 			String sql = "SELECT COUNT (rent_date) FROM rentbooks where rentbooks.book_id=" + bookId+";";
@@ -74,16 +81,10 @@ public class RentBooksService {
 	}
 
 	/**
-	 * 返却する書籍を削除する
-	 * 
-	 * @param bookId 書籍ID
+	 * 貸出書籍のリスト
+	 * @return
 	 */
-	//public void returnBook(Integer bookId) {
-		//String sql = "delete from rentBooks where book_id =" + bookId;
-
-		//jdbcTemplate.update(sql);
-
-	//}
+	
 
 	public List<BorrowingHistoryInfo> BorrowingHistoryList() {
 		List<BorrowingHistoryInfo> BorrowingHistoryList = jdbcTemplate.query(

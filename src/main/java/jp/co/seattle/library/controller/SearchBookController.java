@@ -20,6 +20,16 @@ import jp.co.seattle.library.service.BooksService;
 
  	@Autowired
      private BooksService booksService;
+ 	
+ 	/**
+ 	 * 
+ 	 * @param locale
+ 	 * @param searchtitle
+ 	 * @param title
+ 	 * @param radiobutton
+ 	 * @param model
+ 	 * @return
+ 	 */
 
  	@Transactional
  	@RequestMapping(value = "/searchBook", method = RequestMethod.POST)
