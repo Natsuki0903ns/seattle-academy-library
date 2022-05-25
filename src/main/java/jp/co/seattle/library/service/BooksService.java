@@ -39,6 +39,11 @@ public class BooksService {
 		return getedBookList;
 	}
 
+	/**
+	 * 書籍IDに紐づく書籍詳細情報を取得する
+	 * @param bookId
+	 * @return
+	 */
 	public BookDetailsInfo getBookInfo(int bookId) {
 
 		// JSPに渡すデータを設定する
@@ -51,6 +56,10 @@ public class BooksService {
 		return bookDetailsInfo;
 	}
 
+	/**
+	 * 最新の書籍情報を取得する
+	 * @return
+	 */
 	public BookDetailsInfo getLatestBookInfo() {
 
 		// JSPに渡すデータを設定する
@@ -77,7 +86,10 @@ public class BooksService {
 		jdbcTemplate.update(sql);
 
 	}
-
+/**
+ * 書籍削除
+ * @param bookId
+ */
 	public void deleteBook(Integer bookId) {
 
 		String sql = "WITH book AS ( DELETE FROM books where id = " + bookId + ") DELETE FROM rentbooks where book_id =" + bookId + ";";
@@ -103,7 +115,11 @@ public class BooksService {
 
 		jdbcTemplate.update(sql);
 	}
-
+	/**
+	 * 部分検索
+	 * @param searchtitle
+	 * @return
+	 */
 	public List<BookInfo> getsearchBookList(String searchtitle) {
 
 		List<BookInfo> getedsearchBookList = jdbcTemplate.query(
@@ -113,6 +129,11 @@ public class BooksService {
 				new BookInfoRowMapper());
 		return getedsearchBookList;
 	}
+	/**
+	 * 完全一致検索
+	 * @param searchtitle
+	 * @return
+	 */
 	public List<BookInfo> getperfect_matchingList(String searchtitle) {
 
 		List<BookInfo>getedperfect_matchingList = jdbcTemplate.query(
@@ -121,13 +142,19 @@ public class BooksService {
 				new BookInfoRowMapper());
 		return getedperfect_matchingList;
 	}
-	
+	/**
+	 * 貸出日付を更新
+	 * @param bookId
+	 */
 	public void updaterent(Integer bookId) {
 
  		String sql ="UPDATE rentbooks set rent_date=now(),return_date=null WHERE book_id="+bookId;
  		jdbcTemplate.update(sql);
  	}
-
+/**
+ * 返却日の更新
+ * @param bookId
+ */
 	public void updatereturn(Integer bookId) {
 
  		String sql ="UPDATE rentbooks set return_date=now(),rent_date=null WHERE book_id="+bookId;

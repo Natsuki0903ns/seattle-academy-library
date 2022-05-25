@@ -57,7 +57,7 @@ public class DeleteBookController {
         
         
        
-		booksService.deleteBook(bookId);
+	
 
 		model.addAttribute("bookList", booksService.getBookList());
 
